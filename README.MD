@@ -13,6 +13,7 @@ Main thread:  This will accept new connections and create the associated client 
 Execution thread:  This will act as the single 'consumer' by taking elements out of the executionQueue. These elements will be in the form of a function associated with a command, its arguments and an event object.
 
 There is one additional thread for each client in the form of the client thread: 
+
 Client thread:  This is the 'producer' and will receive commands and then add them to the executionQueue and wait until the executionQueue has consumed this command before receiving extra commands. 
 
 There were several other design considerations for the functions associated with each command. In particular, each command is treated independently, meaning that there is no assumed state or declared variables that persist between commands, other than global variables in globals.py. Furthermore, instead of reading and editing threads at the same time, threads are read once and converted to a different representation, usually a list or dictionary for further changes and then the file is completely erased and written to using this representation. This is preferable as it allows for pure functions when interacting with the content of threads, preventing side-effects and making it easier to test.
